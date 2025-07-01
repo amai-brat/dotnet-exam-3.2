@@ -15,7 +15,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         Seed(modelBuilder);
-        
         base.OnModelCreating(modelBuilder);
     }
 
@@ -32,32 +31,33 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             new()
             {
                 Id = 1,
+                HotelId = 1,
                 Area = 50,
                 GuestCapacity = 4
             },
             new()
             {
                 Id = 2,
+                HotelId = 1,
                 Area = 25,
                 GuestCapacity = 2
             },
             new()
             {
                 Id = 3,
+                HotelId = 1,
                 Area = 35,
                 GuestCapacity = 3
             }
         ];
         
         modelBuilder.Entity<Room>().HasData(rooms);
-        
         modelBuilder.Entity<Hotel>().HasData(new Hotel
         {
             Id = 1,
             Name = "Trivago",
             Stars = 5,
-            Address = "Казань",
-            Rooms = rooms
+            Address = "Казань"
         });
     }
 }

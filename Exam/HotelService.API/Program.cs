@@ -1,6 +1,8 @@
 using HotelService.API;
+using HotelService.Application;
 using HotelService.Application.Options;
 using HotelService.Infrastructure;
+using HotelService.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +14,12 @@ builder.Services.AddSwaggerGenWithBearer();
 builder.Services.AddJwtAuthentication(builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>()
                                       ?? throw new InvalidOperationException("JwtOptions not found"));
 builder.Services.AddAuthorization();
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+await Migrator.MigrateAsync(app.Services);
 
 if (app.Environment.IsDevelopment())
 {

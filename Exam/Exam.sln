@@ -17,9 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentSe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{067CB691-FD5B-46A1-A646-D45148EE719F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{BC1F79BA-012D-40CF-8B64-64E6C5121BC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{BC1F79BA-012D-40CF-8B64-64E6C5121BC2}"
 	ProjectSection(SolutionItems) = preProject
 		..\compose.yaml = ..\compose.yaml
+		Makefile = Makefile
 	EndProjectSection
 EndProject
 Global

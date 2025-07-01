@@ -1,4 +1,6 @@
-﻿using HotelService.Infrastructure.Data;
+﻿using HotelService.Domain.Repositories;
+using HotelService.Infrastructure.Data;
+using HotelService.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,9 @@ public static class DependencyInjection
             options.UseNpgsql(configuration.GetConnectionString("PostgresBooking"));
         });
 
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         return services;
     }
 }

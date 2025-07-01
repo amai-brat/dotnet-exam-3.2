@@ -11,6 +11,7 @@ public class HotelConfiguration : IEntityTypeConfiguration<Hotel>
         builder.HasKey(x => x.Id);
 
         builder.HasMany(x => x.Rooms)
-            .WithOne();
+            .WithOne(x => x.Hotel)
+            .HasForeignKey(x => x.HotelId);
     }
 }

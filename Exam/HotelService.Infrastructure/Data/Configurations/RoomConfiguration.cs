@@ -9,5 +9,9 @@ public class RoomConfiguration : IEntityTypeConfiguration<Room>
     public void Configure(EntityTypeBuilder<Room> builder)
     {
         builder.HasKey(x => x.Id);
+        
+        builder.HasOne(x => x.Hotel)
+            .WithMany(x => x.Rooms)
+            .HasForeignKey(x => x.HotelId);
     }
 }
