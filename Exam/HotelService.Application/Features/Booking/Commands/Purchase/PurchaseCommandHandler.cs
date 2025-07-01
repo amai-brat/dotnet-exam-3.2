@@ -15,6 +15,11 @@ public class PurchaseCommandHandler(
     IBookingRepository bookingRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<PurchaseCommand>
 {
+    private class ResponseType
+    {
+        public PurchaseResponse Purchase { get; set; } = null!;
+    }
+    
     private const string PaymentQuery = """
                                            mutation Purchase($input: PurchaseInput!) {
                                                purchase(input: $input) {
@@ -58,10 +63,16 @@ public class PurchaseCommandHandler(
 
         try
         {
-            var response = await client.SendQueryAsync<PurchaseResponse>(paymentRequest, cancellationToken);
-            booking.Status = response.Data.Status == TransactionStatus.Completed 
-                ? BookingStatus.Success 
-                : BookingStatus.Failed;
+            var response = await client.SendQueryAsync<ResponseType>(paymentRequest, cancellationToken);
+            if (response.Data.Purchase.Status == TransactionStatus.Completed)
+            {
+                booking.Room.IsBooked = true;
+                booking.Status = BookingStatus.Success;
+            }
+            else
+            {
+                booking.Status = BookingStatus.Failed;
+            }
         }
         catch (Exception e)
         {

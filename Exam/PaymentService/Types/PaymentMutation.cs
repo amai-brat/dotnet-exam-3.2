@@ -1,6 +1,7 @@
 using Contracts;
 using HotChocolate.Language;
 using PaymentService.Data.Abstractions;
+using PaymentService.Exceptions;
 using PaymentService.Models;
 using PaymentService.Services;
 using TransactionStatus = PaymentService.Models.TransactionStatus;
@@ -26,13 +27,13 @@ public class PaymentMutation
             var currency = await currencyRepository.GetCurrencyAsync(input.CurrencyCode);
             if (currency == null)
             {
-                throw new Exception("Currency not found");
+                throw new NotFoundException("Currency not found");
             }
 
             var accNumberFrom = await accountProvider.GetAccountNumber(card);
             if (accNumberFrom == null)
             {
-                throw new Exception("Account number not found");
+                throw new NotFoundException("Account number not found");
             }
 
             var accNumberTo = await accountProvider.GetOrganizationAccountNumber();
@@ -55,7 +56,7 @@ public class PaymentMutation
         catch (Exception ex)
         {
             logger.LogWarning("During payment process error occured: {Message}", ex.Message);
-            throw new Exception("Internal error");
+            throw;
         }
     }
     

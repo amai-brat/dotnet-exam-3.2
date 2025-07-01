@@ -14,6 +14,8 @@ public class BookingRepository(AppDbContext dbContext) : IBookingRepository
 
     public async Task<Booking?> GetById(Guid id, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Bookings.FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+        return await dbContext.Bookings
+            .Include(x => x.Room)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 }

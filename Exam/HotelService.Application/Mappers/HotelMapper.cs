@@ -13,6 +13,7 @@ public static class HotelMapper
             Name = hotel.Name,
             Address = hotel.Address,
             Stars = hotel.Stars,
+            Rooms = rooms
         };
     }
 

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentService.Data;
 using PaymentService.Data.Abstractions;
 using PaymentService.Data.Impls;
+using PaymentService.Exceptions;
 using PaymentService.Services;
 using PaymentService.Types;
 
@@ -23,6 +24,15 @@ builder.Services
     {
         PayloadErrorsFieldName = "errors",
         ApplyToAllMutations = true
+    })
+    .AddErrorFilter(error =>
+    {
+        return error.Exception switch
+        {
+            ArgumentValidationException ex => error.WithCode("400").WithMessage(ex.Message),
+            NotFoundException ex => error.WithCode("404").WithMessage(ex.Message),
+            _ => error.WithCode("500").WithMessage("Internal Server Error")
+        };
     })
     .AddQueryType<Query>()
     .AddMutationType()

@@ -1,6 +1,7 @@
 using Contracts;
 using FluentResults;
 using HotelService.Application.Cqrs.Commands;
+using HotelService.Application.Features.Booking.Dtos;
 using HotelService.Application.Helpers;
 using HotelService.Application.Services;
 using HotelService.Domain.Entities;
@@ -15,9 +16,9 @@ public class BookRoomCommandHandler(
     IRoomRepository roomRepository,
     IBookingRepository bookingRepository,
     IOutboxRepository outboxRepository,
-    IUnitOfWork unitOfWork) : ICommandHandler<BookRoomCommand>
+    IUnitOfWork unitOfWork) : ICommandHandler<BookRoomCommand, BookingResponse>
 {
-    public async Task<Result> Handle(BookRoomCommand request, CancellationToken cancellationToken)
+    public async Task<Result<BookingResponse>> Handle(BookRoomCommand request, CancellationToken cancellationToken)
     {
         var currency = await currencyRepository.GetByIdAsync(request.CurrencyId, cancellationToken);
         if (currency == null)
@@ -35,6 +36,11 @@ public class BookRoomCommandHandler(
         if (room == null)
         {
             return Result.Fail("Room not found");
+        }
+
+        if (room.IsBooked)
+        {
+            return Result.Fail("Booked room");
         }
         
         var booking = new Domain.Entities.Booking
@@ -55,6 +61,6 @@ public class BookRoomCommandHandler(
         await bookingRepository.AddAsync(booking, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         
-        return Result.Ok();
+        return Result.Ok(BookingResponse.MapFrom(booking));
     }
 }
