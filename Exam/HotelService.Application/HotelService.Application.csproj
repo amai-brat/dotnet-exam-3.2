@@ -8,6 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.5.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HotelService.Domain\HotelService.Domain.csproj" />
     </ItemGroup>
 
 </Project>
