@@ -43,6 +43,9 @@ namespace HotelService.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
@@ -114,6 +117,34 @@ namespace HotelService.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("HotelService.Domain.Entities.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EventPayload")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("SentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessages");
+                });
+
             modelBuilder.Entity("HotelService.Domain.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -131,6 +162,9 @@ namespace HotelService.Infrastructure.Migrations
                     b.Property<int>("HotelId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsBooked")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HotelId");
@@ -143,21 +177,24 @@ namespace HotelService.Infrastructure.Migrations
                             Id = 1,
                             Area = 50.0,
                             GuestCapacity = 4,
-                            HotelId = 1
+                            HotelId = 1,
+                            IsBooked = false
                         },
                         new
                         {
                             Id = 2,
                             Area = 25.0,
                             GuestCapacity = 2,
-                            HotelId = 1
+                            HotelId = 1,
+                            IsBooked = false
                         },
                         new
                         {
                             Id = 3,
                             Area = 35.0,
                             GuestCapacity = 3,
-                            HotelId = 1
+                            HotelId = 1,
+                            IsBooked = false
                         });
                 });
 

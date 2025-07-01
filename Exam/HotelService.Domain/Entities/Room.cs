@@ -9,4 +9,5 @@ public class Room
     
     public double Area { get; set; }
     public int GuestCapacity { get; set; }
+    public bool IsBooked { get; set; }
 }

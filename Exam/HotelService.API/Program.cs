@@ -1,4 +1,5 @@
 using HotelService.API;
+using HotelService.API.Services;
 using HotelService.Application;
 using HotelService.Application.Options;
 using HotelService.Infrastructure;
@@ -16,6 +17,7 @@ builder.Services.AddJwtAuthentication(builder.Configuration.GetSection("JwtOptio
 builder.Services.AddAuthorization();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHostedService<OutboxWorker>();
 
 var app = builder.Build();
 

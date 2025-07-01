@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{BC1F79BA
 		Makefile = Makefile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{03CAD284-076E-421B-B9F5-411550E8E613}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{A1E35930-94DC-4380-87E9-5AAB20D12CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E35930-94DC-4380-87E9-5AAB20D12CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E35930-94DC-4380-87E9-5AAB20D12CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CAD284-076E-421B-B9F5-411550E8E613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CAD284-076E-421B-B9F5-411550E8E613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CAD284-076E-421B-B9F5-411550E8E613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CAD284-076E-421B-B9F5-411550E8E613}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B9137773-9F91-4F17-B587-8616FFA9B204} = {9ACDA08B-F662-488B-AA79-8B5D89443700}

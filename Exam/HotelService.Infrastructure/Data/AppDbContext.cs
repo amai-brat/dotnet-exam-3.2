@@ -1,5 +1,6 @@
 using HotelService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Currency = HotelService.Domain.Entities.Currency;
 
 namespace HotelService.Infrastructure.Data;
 
@@ -10,7 +11,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Room> Rooms => Set<Room>();
     public DbSet<Booking> Bookings => Set<Booking>();
     public DbSet<Currency> Currencies => Set<Currency>();
-
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);

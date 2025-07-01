@@ -1,8 +1,17 @@
 namespace HotelService.Domain.Entities;
 
+public enum BookingStatus
+{
+    None = 0,
+    Processing = 1,
+    Success = 2,
+    Failed = 3
+}
+
 public class Booking
 {
     public Guid Id { get; set; }
+    public BookingStatus Status { get; set; } = BookingStatus.None;
     
     public int RoomId { get; set; }
     public required Room Room { get; set; }
